@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#you won't guess what i store in it (of course not user data)
+passwords.txt 

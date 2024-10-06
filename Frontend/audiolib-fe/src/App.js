@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useAuth0 } from "@auth0/auth0-react";
+import "./App.css";
+import { Router, Route, Routes } from "react-router-dom";
+import LoginButton from "./auth/login";
+import LogoutButton from "./auth/logout";
+import Profile from "./profile/profile";
 
 function App() {
+  const { isAuthenticated } = useAuth0();
+  const LogInOutBtn = isAuthenticated ? LogoutButton : LoginButton;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        Привіт! я чисто тестую логін. завтра зроблю більше фронта. на кнопочку
+        <LogInOutBtn />
+        <Routes>
+          <Route path="/profile" element={Profile}/>
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
