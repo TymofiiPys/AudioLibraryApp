@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Date;
-import java.util.Objects;
 
 @Entity
 @Data
@@ -25,9 +24,8 @@ public class Audio {
     private int year;
 
 
-    @Basic
     @Column(name = "duration")
-    private Object duration;
+    private String duration;
 
 
     @Basic

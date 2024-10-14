@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 @jakarta.persistence.Table(name = "songs", schema = "public", catalog = "AudioLib")
 public class Song {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
     private long id;
