@@ -3,11 +3,10 @@ package org.audiolib.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Objects;
-
 @Entity
 @Data
-public class Books {
+@jakarta.persistence.Table(name = "books", schema = "public", catalog = "AudioLib")
+public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @jakarta.persistence.Column(name = "id")
