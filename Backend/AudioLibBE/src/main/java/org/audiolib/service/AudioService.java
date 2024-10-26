@@ -31,11 +31,11 @@ public class AudioService {
         return song;
     }
 
-    public Book saveBook(Book book) {
-        Audio audio = book.getAudio();
+    public Book saveBook(Book book, Audio audio) {
         addCurrentDate(audio);
-        audio = audioRepository.save(audio);
-        book.setAudio(audio);
-        return bookRepository.save(book);
+        Long audioId = audioRepository.save(audio.getName(), audio.getYear(), audio.getDuration(), audio.getDateAdded());
+        book.setId(audioId);
+        bookRepository.save(book);
+        return book;
     }
 }
