@@ -9,7 +9,7 @@ import lombok.Data;
 public class Song {
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
     @Basic
     @Column(name = "artist")
     private int artist;

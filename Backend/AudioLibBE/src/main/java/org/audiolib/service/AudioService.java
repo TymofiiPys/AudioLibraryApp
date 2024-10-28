@@ -55,7 +55,12 @@ public class AudioService {
     }
 
     public List<SongDTO> getAllSongs() {
-//        return bookRepository.findAll();
-        return null;
+        List<Song> songs = songRepository.findAll();
+        List<Audio> audio = audioRepository.findAllByIdIn(songs.stream().map(Song::getId).collect(Collectors.toList()));
+        List<SongDTO> songDTOS = new ArrayList<>();
+        for (int i = 0; i < songs.size(); i++) {
+            songDTOS.add(new SongDTO(audio.get(i), songs.get(i)));
+        }
+        return songDTOS;
     }
 }

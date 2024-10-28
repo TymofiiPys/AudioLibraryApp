@@ -34,8 +34,8 @@ public class AudioController {
     }
 
     @GetMapping("/songs")
-    public ResponseEntity<Song[]> getSongs(){
-        return null;
+    public ResponseEntity<SongDTO[]> getSongs(){
+        return ResponseEntity.ok(audioService.getAllSongs().toArray(new SongDTO[0]));
     }
 
     @GetMapping("/books")
