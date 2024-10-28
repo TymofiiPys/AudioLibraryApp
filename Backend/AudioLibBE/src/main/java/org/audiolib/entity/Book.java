@@ -9,7 +9,7 @@ import lombok.Data;
 public class Book {
     @Id
     @jakarta.persistence.Column(name = "id")
-    private long id;
+    private Long id;
     @Basic
     @Column(name = "author")
     private int author;

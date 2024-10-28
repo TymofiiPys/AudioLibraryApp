@@ -1,6 +1,8 @@
 package org.audiolib.service;
 
 import lombok.RequiredArgsConstructor;
+import org.audiolib.dto.BookDTO;
+import org.audiolib.dto.SongDTO;
 import org.audiolib.entity.Audio;
 import org.audiolib.entity.Book;
 import org.audiolib.entity.Song;
@@ -11,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +42,20 @@ public class AudioService {
         book.setId(audioId);
         bookRepository.save(book);
         return book;
+    }
+
+    public List<BookDTO> getAllBooks() {
+        List<Book> books = bookRepository.findAll();
+        List<Audio> audio = audioRepository.findAllByIdIn(books.stream().map(Book::getId).collect(Collectors.toList()));
+        List<BookDTO> bookDTOS = new ArrayList<>();
+        for (int i = 0; i < books.size(); i++) {
+            bookDTOS.add(new BookDTO(audio.get(i), books.get(i)));
+        }
+        return bookDTOS;
+    }
+
+    public List<SongDTO> getAllSongs() {
+//        return bookRepository.findAll();
+        return null;
     }
 }
