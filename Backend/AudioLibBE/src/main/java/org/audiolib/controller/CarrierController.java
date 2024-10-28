@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.audiolib.dto.CarrierDTO;
 import org.audiolib.service.CarrierService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,5 +23,10 @@ public class CarrierController {
     @GetMapping("/carriers/{id}")
     public ResponseEntity<CarrierDTO> getCarrier(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(carrierService.getCarrier(id));
+    }
+
+    @PostMapping("/carriers/{id}")
+    public ResponseEntity<CarrierDTO> createCarrier(@RequestBody CarrierDTO carrierDTO) {
+        return ResponseEntity.ok(carrierService.saveCarrier(carrierDTO));
     }
 }

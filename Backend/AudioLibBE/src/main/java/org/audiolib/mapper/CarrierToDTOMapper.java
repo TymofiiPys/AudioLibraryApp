@@ -9,4 +9,5 @@ import org.mapstruct.factory.Mappers;
 public interface CarrierToDTOMapper {
     CarrierToDTOMapper INSTANCE = Mappers.getMapper(CarrierToDTOMapper.class);
     CarrierDTO toDTO(AudioCarriers carrier);
+    AudioCarriers toCarrier(CarrierDTO carrierDTO);
 }
