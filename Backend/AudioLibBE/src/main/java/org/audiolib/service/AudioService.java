@@ -63,4 +63,16 @@ public class AudioService {
         }
         return songDTOS;
     }
+
+    public SongDTO getSong(Long id) {
+        Song song = songRepository.findById(id).get();
+        Audio audio = audioRepository.findById(id).get();
+        return new SongDTO(audio, song);
+    }
+
+    public BookDTO getBook(Long id) {
+        Book book = bookRepository.findById(id).get();
+        Audio audio = audioRepository.findById(id).get();
+        return new BookDTO(audio, book);
+    }
 }

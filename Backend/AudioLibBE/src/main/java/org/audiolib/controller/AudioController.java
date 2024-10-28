@@ -7,10 +7,7 @@ import org.audiolib.entity.Book;
 import org.audiolib.entity.Song;
 import org.audiolib.service.AudioService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Endpoints for audio CRUD operations
@@ -41,5 +38,15 @@ public class AudioController {
     @GetMapping("/books")
     public ResponseEntity<BookDTO[]> getBooks(){
         return ResponseEntity.ok(audioService.getAllBooks().toArray(new BookDTO[0]));
+    }
+
+    @GetMapping("/songs/{id}")
+    public ResponseEntity<SongDTO> getSong(@PathVariable(name = "id") Long id){
+        return ResponseEntity.ok(audioService.getSong(id));
+    }
+
+    @GetMapping("/books/{id}")
+    public ResponseEntity<BookDTO> getBook(@PathVariable(name = "id") Long id){
+        return ResponseEntity.ok(audioService.getBook(id));
     }
 }
