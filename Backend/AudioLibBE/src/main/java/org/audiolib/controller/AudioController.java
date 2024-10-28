@@ -19,14 +19,14 @@ public class AudioController {
 
     @PostMapping("/songs")
     public ResponseEntity<Song> addSong(@RequestBody SongDTO songDTO) {
-        Song savedSong = audioService.saveSong(songDTO.getSong(), songDTO.getAudio());
+        Song savedSong = audioService.saveSong(songDTO.song(), songDTO.audio());
         return ResponseEntity.ok(savedSong);
         // TODO: also return audio info
     }
 
     @PostMapping("/books")
     public ResponseEntity<Book> addBook(@RequestBody BookDTO bookDTO) {
-        Book savedBook = audioService.saveBook(bookDTO.getBook(), bookDTO.getAudio());
+        Book savedBook = audioService.saveBook(bookDTO.book(), bookDTO.audio());
         return ResponseEntity.ok(savedBook);
     }
 
@@ -64,11 +64,11 @@ public class AudioController {
 
     @PutMapping("/songs")
     public ResponseEntity<SongDTO> updateSong(SongDTO songDTO) {
-        return ResponseEntity.ok(audioService.updateSong(songDTO.getSong(), songDTO.getAudio()));
+        return ResponseEntity.ok(audioService.updateSong(songDTO.song(), songDTO.audio()));
     }
 
     @PutMapping("/books")
     public ResponseEntity<BookDTO> updateBook(BookDTO bookDTO) {
-        return ResponseEntity.ok(audioService.updateBook(bookDTO.getBook(), bookDTO.getAudio()));
+        return ResponseEntity.ok(audioService.updateBook(bookDTO.book(), bookDTO.audio()));
     }
 }
