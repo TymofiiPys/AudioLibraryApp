@@ -31,22 +31,34 @@ public class AudioController {
     }
 
     @GetMapping("/songs")
-    public ResponseEntity<SongDTO[]> getSongs(){
+    public ResponseEntity<SongDTO[]> getSongs() {
         return ResponseEntity.ok(audioService.getAllSongs().toArray(new SongDTO[0]));
     }
 
     @GetMapping("/books")
-    public ResponseEntity<BookDTO[]> getBooks(){
+    public ResponseEntity<BookDTO[]> getBooks() {
         return ResponseEntity.ok(audioService.getAllBooks().toArray(new BookDTO[0]));
     }
 
     @GetMapping("/songs/{id}")
-    public ResponseEntity<SongDTO> getSong(@PathVariable(name = "id") Long id){
+    public ResponseEntity<SongDTO> getSong(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(audioService.getSong(id));
     }
 
     @GetMapping("/books/{id}")
-    public ResponseEntity<BookDTO> getBook(@PathVariable(name = "id") Long id){
+    public ResponseEntity<BookDTO> getBook(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(audioService.getBook(id));
+    }
+
+    @DeleteMapping("/songs/{id}")
+    public ResponseEntity<Void> deleteSong(@PathVariable(name = "id") Long id) {
+        audioService.deleteSong(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/books/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable(name = "id") Long id) {
+        audioService.deleteBook(id);
+        return ResponseEntity.ok().build();
     }
 }

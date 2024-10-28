@@ -75,4 +75,14 @@ public class AudioService {
         Audio audio = audioRepository.findById(id).get();
         return new BookDTO(audio, book);
     }
+
+    public void deleteSong(Long id) {
+        songRepository.deleteById(id);
+        audioRepository.deleteById(id);
+    }
+
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
+        audioRepository.deleteById(id);
+    }
 }
