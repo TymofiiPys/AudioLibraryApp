@@ -85,4 +85,16 @@ public class AudioService {
         bookRepository.deleteById(id);
         audioRepository.deleteById(id);
     }
+
+    public SongDTO updateSong(Song song, Audio audio) {
+        Audio audioNew = audioRepository.save(audio);
+        Song songNew = songRepository.save(song);
+        return new SongDTO(audioNew, songNew);
+    }
+
+    public BookDTO updateBook(Book book, Audio audio) {
+        Audio audioNew = audioRepository.save(audio);
+        Book bookNew = bookRepository.save(book);
+        return new BookDTO(audioNew, bookNew);
+    }
 }

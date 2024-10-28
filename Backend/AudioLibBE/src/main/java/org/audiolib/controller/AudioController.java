@@ -61,4 +61,14 @@ public class AudioController {
         audioService.deleteBook(id);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/songs")
+    public ResponseEntity<SongDTO> updateSong(SongDTO songDTO) {
+        return ResponseEntity.ok(audioService.updateSong(songDTO.getSong(), songDTO.getAudio()));
+    }
+
+    @PutMapping("/books")
+    public ResponseEntity<BookDTO> updateBook(BookDTO bookDTO) {
+        return ResponseEntity.ok(audioService.updateBook(bookDTO.getBook(), bookDTO.getAudio()));
+    }
 }
