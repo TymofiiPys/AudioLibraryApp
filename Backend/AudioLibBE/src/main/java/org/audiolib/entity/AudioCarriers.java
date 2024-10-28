@@ -14,12 +14,12 @@ public class AudioCarriers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @jakarta.persistence.Column(name = "id")
-    private long id;
+    private Long id;
 
 
     @Basic
     @Column(name = "audio_id")
-    private long audioId;
+    private Long audioId;
 
 
     @Column(name = "carrier")
