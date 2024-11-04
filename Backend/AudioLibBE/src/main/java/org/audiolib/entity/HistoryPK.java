@@ -4,10 +4,9 @@ import lombok.*;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class HistoryPK implements Serializable {
     private String userId;
     private long audioId;

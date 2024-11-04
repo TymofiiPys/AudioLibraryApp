@@ -1,24 +1,28 @@
 package org.audiolib.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.util.Objects;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Transact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
     @Basic
     @Column(name = "user_id")
     private String userId;
     @Basic
     @Column(name = "audio_carrier_id")
-    private long audioCarrierId;
+    private Long audioCarrierId;
     @Basic
     @Column(name = "date_rented")
     private Date dateRented;
