@@ -10,18 +10,20 @@ import lombok.RequiredArgsConstructor;
 import java.sql.Date;
 import java.util.Objects;
 
-@Entity
-@Data
-@NoArgsConstructor
-public class AudCarSalesDTO {
-    @Id
-    private Long id = null;
-    private Long carrier_id;
-    private Integer quantity;
-    private Date date;
-    public AudCarSalesDTO(Long carrier_id, Integer quantity, Date date) {
-        this.carrier_id = carrier_id;
-        this.quantity = quantity;
-        this.date = date;
-    }
+//@Entity
+//@Data
+//@NoArgsConstructor
+//public class AudCarSalesDTO {
+//    @Id
+//    private Long id = null;
+//    private Long carrier_id;
+//    private Integer quantity;
+//    private Date date;
+//    public AudCarSalesDTO(Long carrier_id, Integer quantity, Date date) {
+//        this.carrier_id = carrier_id;
+//        this.quantity = quantity;
+//        this.date = date;
+//    }
+//}
+public record AudCarSalesDTO(Long carrier_id, Integer quantity, Date _date) {
 }
