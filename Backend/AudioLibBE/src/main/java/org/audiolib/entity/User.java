@@ -20,4 +20,10 @@ public class User {
     @Basic
     @Column(name = "blocked")
     private boolean blocked;
+    @Basic
+    @Column(name = "pwd")
+    private String password;
+    public boolean isAdmin() {
+        return id == "PYSARENKOV";
+    }
 }
