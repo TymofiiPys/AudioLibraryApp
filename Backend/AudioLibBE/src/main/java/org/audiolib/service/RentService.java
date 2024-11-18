@@ -20,7 +20,7 @@ public class RentService {
 
     private boolean carrierAvailable(Long carrierId) {
         AudioCarrier carrier = carrierRepository.findById(carrierId).get();
-        return carrier.getAmtAvailable() > 0 || carrier.getAmtAvailable() == -1;
+        return carrier.getAmtAvailable() == null || carrier.getAmtAvailable() > 0;
     }
 
     public void createRent(RentReceiveDTO rentReceiveDTO) {
@@ -32,25 +32,25 @@ public class RentService {
                 rentReceiveDTO.dateEndOfRent()
         );
         if (carrierAvailable(tRecord.getAudioCarrierId())) {
-            AudioCarrier carrier = carrierRepository.findById(tRecord.getAudioCarrierId()).get();
-            if(carrier.getCarrier() == AudioCarrier.Carriers.digital)
-            {
-                carrier.setAmtAvailable(carrier.getAmtAvailable() - 1);
-                carrierRepository.save(carrier);
-            }
+//            AudioCarrier carrier = carrierRepository.findById(tRecord.getAudioCarrierId()).get();
+//            if(carrier.getCarrier() == AudioCarrier.Carriers.digital)
+//            {
+//                carrier.setAmtAvailable(carrier.getAmtAvailable() - 1);
+//                carrierRepository.save(carrier);
+//            }
             transactRepository.save(tRecord);
-            String userId = rentReceiveDTO.userId();
-            Long audioId = carrierRepository.findAudioIdByCarrier(rentReceiveDTO.audioCarrierId());
-            History hRecord = new History();
-            hRecord.setUserId(userId);
-            hRecord.setAudioId(audioId);
-            if (historyRepository.existsById(new HistoryPK(userId, audioId))) {
-                hRecord = historyRepository.findById(new HistoryPK(userId, audioId)).get();
-                hRecord.setAmtListened(hRecord.getAmtListened() + 1);
-            } else {
-                hRecord.setAmtListened(1);
-            }
-            historyRepository.save(hRecord);
+//            String userId = rentReceiveDTO.userId();
+//            Long audioId = carrierRepository.findAudioIdByCarrier(rentReceiveDTO.audioCarrierId());
+//            History hRecord = new History();
+//            hRecord.setUserId(userId);
+//            hRecord.setAudioId(audioId);
+//            if (historyRepository.existsById(new HistoryPK(userId, audioId))) {
+//                hRecord = historyRepository.findById(new HistoryPK(userId, audioId)).get();
+//                hRecord.setAmtListened(hRecord.getAmtListened() + 1);
+//            } else {
+//                hRecord.setAmtListened(1);
+//            }
+//            historyRepository.save(hRecord);
         }
     }
 }
