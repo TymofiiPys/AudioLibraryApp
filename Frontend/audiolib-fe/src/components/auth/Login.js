@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { apiRequest } from "../../utils/apiHelper";
+import { apiRequest } from "../../utils/apiHelper"; // Assuming the helper function is reusable
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,9 +11,8 @@ const Login = () => {
     e.preventDefault();
     try {
       const data = await apiRequest("/login", "POST", { email, password });
-      localStorage.setItem("userId", data.userId); // Store user ID
-      alert("Login successful!");
-      navigate("/"); // Redirect after login
+      localStorage.setItem("userId", data.userId); // Store userId after login
+      navigate("/main-menu"); // Redirect to main menu after login
     } catch (error) {
       alert(error.message || "Login failed");
     }
