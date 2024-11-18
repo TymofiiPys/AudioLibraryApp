@@ -2,12 +2,10 @@ package org.audiolib.service;
 
 import lombok.RequiredArgsConstructor;
 import org.audiolib.dto.AudioRentStatDTO;
+import org.audiolib.entity.AudioRentStat;
 import org.audiolib.entity.BookListens;
 import org.audiolib.entity.SongListens;
-import org.audiolib.repository.BookListensRepository;
-import org.audiolib.repository.HistoryRepository;
-import org.audiolib.repository.SongListensRepository;
-import org.audiolib.repository.TransactRepository;
+import org.audiolib.repository.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +18,7 @@ public class StatsService {
     private final TransactRepository tRepository;
     private final SongListensRepository slRepo;
     private final BookListensRepository blRepo;
+    private final AudioRentStatRepository arsRepo;
 
     public List<SongListens> getPopularSongs(Integer amt) {
         return slRepo.findAll(PageRequest.of(0, amt)).stream().toList();
@@ -29,11 +28,11 @@ public class StatsService {
         return blRepo.findAll(PageRequest.of(0, amt)).stream().toList();
     }
 
-    public AudioRentStatDTO getSongRentStat(Long id) {
-        return tRepository.getRentStatSongById(id);
+    public AudioRentStat getAudioRentStat(Long id) {
+        return arsRepo.findById(id).get();
     }
 
-    public AudioRentStatDTO getBookRentStat(Long id) {
-        return tRepository.getRentStatBookById(id);
-    }
+//    public AudioRentStatDTO getBookRentStat(Long id) {
+//        return tRepository.getRentStatBookById(id);
+//    }
 }

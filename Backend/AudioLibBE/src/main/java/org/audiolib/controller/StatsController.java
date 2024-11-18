@@ -1,11 +1,13 @@
 package org.audiolib.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.audiolib.entity.AudioRentStat;
 import org.audiolib.entity.BookListens;
 import org.audiolib.entity.SongListens;
 import org.audiolib.service.StatsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,4 +25,14 @@ public class StatsController {
     public ResponseEntity<BookListens[]> getPopularBooks(@RequestParam(name = "top") Integer amt) {
         return ResponseEntity.ok(service.getPopularBooks(amt).toArray(new BookListens[0]));
     }
+
+    @GetMapping(value = "/rent_stat/{id}")
+    public ResponseEntity<AudioRentStat> getAudioRentStat(@PathVariable(name = "id") Long id) {
+        return ResponseEntity.ok(service.getAudioRentStat(id));
+    }
+
+//    @GetMapping(value = "/rent_stat_book/{id}")
+//    public ResponseEntity<AudioRentStatDTO> getPopularBooks(@PathVariable(name = "id") Long id) {
+//        return ResponseEntity.ok(service.getBookRentStat(id));
+//    }
 }
