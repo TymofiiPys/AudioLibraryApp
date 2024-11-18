@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,29 +44,9 @@ public class AudioService {
         return book;
     }
 
-//    public List<BookDTO> getAllBooks() {
-//        List<Book> books = bookRepository.findAll();
-//        List<Audio> audio = audioRepository.findAllByIdIn(books.stream().map(Book::getId).collect(Collectors.toList()));
-//        List<BookDTO> bookDTOS = new ArrayList<>();
-//        for (int i = 0; i < books.size(); i++) {
-//            bookDTOS.add(new BookDTO(audio.get(i), books.get(i)));
-//        }
-//        return bookDTOS;
-//    }
-
     public List<BookView> getAllBooks(){
         return bvRepo.findAll();
     }
-
-//    public List<SongDTO> getAllSongs() {
-//        List<Song> songs = songRepository.findAll();
-//        List<Audio> audio = audioRepository.findAllByIdIn(songs.stream().map(Song::getId).collect(Collectors.toList()));
-//        List<SongDTO> songDTOS = new ArrayList<>();
-//        for (int i = 0; i < songs.size(); i++) {
-//            songDTOS.add(new SongDTO(audio.get(i), songs.get(i)));
-//        }
-//        return songDTOS;
-//    }
 
     public List<SongView> getAllSongs(){
         return svRepo.findAll();

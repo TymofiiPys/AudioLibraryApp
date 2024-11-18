@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "aud_car_sales", schema = "public", catalog = "AudioLib")

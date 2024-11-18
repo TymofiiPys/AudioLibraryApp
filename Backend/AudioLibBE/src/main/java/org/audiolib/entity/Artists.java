@@ -2,9 +2,6 @@ package org.audiolib.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-
-import java.util.Objects;
 
 @Entity
 @Data

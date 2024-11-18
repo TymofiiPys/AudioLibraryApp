@@ -3,8 +3,6 @@ package org.audiolib.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Objects;
-
 @Entity
 @Data
 public class Params {

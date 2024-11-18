@@ -1,11 +1,8 @@
 package org.audiolib.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import org.hibernate.annotations.Immutable;
-
-import java.util.Objects;
 
 @Entity
 @Immutable
