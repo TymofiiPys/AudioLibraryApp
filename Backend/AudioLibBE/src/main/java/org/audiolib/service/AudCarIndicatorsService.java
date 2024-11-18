@@ -1,12 +1,11 @@
 package org.audiolib.service;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.audiolib.dto.AudCarSalesDTO;
+import org.audiolib.dto.GenreStatsDTO;
 import org.audiolib.entity.AudCarInventory;
 import org.audiolib.entity.AudCarSales;
-import org.audiolib.entity.AudioCarriers;
-import org.audiolib.entity.Transact;
+import org.audiolib.entity.AudioCarrier;
 import org.audiolib.mapper.AudSalToDTOMapper;
 import org.audiolib.repository.AudCarInventoryRepository;
 import org.audiolib.repository.AudCarSalesRepository;
@@ -27,8 +26,10 @@ public class AudCarIndicatorsService {
     private final CarrierRepository carrierRepository;
     private final TransactRepository transactRepository;
     private final AudSalToDTOMapper mapper = AudSalToDTOMapper.INSTANCE;
-    public void createInvEntry(){
-        List<AudioCarriers> audioCarriers = carrierRepository.findAll();
+    public List<AudCarInventory> createInvEntry(){
+        List<AudioCarrier> audioCarriers = carrierRepository.findAllByCarrierIn(List.of(
+                AudioCarrier.Carriers.cd, AudioCarrier.Carriers.vinyl
+        ));
         List<AudCarInventory> carInv = new ArrayList<>();
         Date today = Date.valueOf(LocalDate.now());
         for (var carrier : audioCarriers) {
@@ -36,9 +37,16 @@ public class AudCarIndicatorsService {
             carInvRecord.setCarrierId(carrier.getId());
             carInvRecord.setDate(today);
             carInvRecord.setQuantity(carrier.getAmtAvailable());
+            carInv.add(carInvRecord);
         }
         List<AudCarInventory> carInvSaved = invRepository.saveAll(carInv);
+        return carInvSaved;
     }
+
+    public List<AudCarInventory> getInvByDate(Date date) {
+        return invRepository.findAllByDate(date);
+    }
+
     public void createSalEntry(){
         List<AudCarSalesDTO> transactsPrevDate = transactRepository.findAllRentedOnDate(
                 Date.valueOf(
@@ -47,5 +55,9 @@ public class AudCarIndicatorsService {
         );
         List<AudCarSales> salEntries = transactsPrevDate.stream().map(mapper::fromDTO).toList();
         List<AudCarSales> salSaved = salesRepository.saveAll(salEntries);
+    }
+
+    public void createGenreEntry() {
+        List<GenreStatsDTO> dtos = transactRepository.genreStatsByDate(Date.valueOf(LocalDate.now()));
     }
 }
