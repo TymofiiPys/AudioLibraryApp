@@ -10,26 +10,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
     private final UserService service;
 
     @PostMapping("/login")
-    private ResponseEntity<String> login(@RequestBody UserDTO userDTO) {
-       int login = service.login(userDTO);
-        if(login == -1) {
+    private ResponseEntity<User> login(@RequestBody UserDTO userDTO) {
+        Optional<User> user = service.login(userDTO);
+        if (user.isEmpty())
             return ResponseEntity.notFound().build();
-        }
-        if(login == -2 || login == -3){
+        else if (!user.get().getPassword().equals(userDTO.password()))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        return ResponseEntity.ok("Successfully authorized");
+        else if (user.get().isBlocked())
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        else
+            return ResponseEntity.ok(user.get());
     }
 
     @PostMapping("/register")
-    private ResponseEntity<String> register(@RequestBody UserDTO userDTO) {
+    private ResponseEntity<User> register(@RequestBody UserDTO userDTO) {
         User optUser = service.register(userDTO);
-        return ResponseEntity.ok("Successfully registered");
+        return ResponseEntity.ok(optUser);
     }
 }

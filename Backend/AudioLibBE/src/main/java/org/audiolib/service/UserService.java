@@ -13,16 +13,8 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository uRepo;
 
-    public int login(UserDTO userDTO) {
-        Optional<User> user = uRepo.findByEmail(userDTO.email());
-        if (user.isEmpty())
-            return -1;
-        else if (user.get().getPassword() != userDTO.password())
-            return -2;
-        else if (user.get().isBlocked())
-            return -3;
-        else
-            return 0;
+    public Optional<User> login(UserDTO userDTO) {
+        return uRepo.findByEmail(userDTO.email());
     }
 
     public User register(UserDTO userDTO) {
