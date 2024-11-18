@@ -3,12 +3,8 @@ package org.audiolib.service;
 import lombok.RequiredArgsConstructor;
 import org.audiolib.dto.BookDTO;
 import org.audiolib.dto.SongDTO;
-import org.audiolib.entity.Audio;
-import org.audiolib.entity.Book;
-import org.audiolib.entity.Song;
-import org.audiolib.repository.AudioRepository;
-import org.audiolib.repository.BookRepository;
-import org.audiolib.repository.SongRepository;
+import org.audiolib.entity.*;
+import org.audiolib.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -23,6 +19,8 @@ public class AudioService {
     private final AudioRepository audioRepository;
     private final SongRepository songRepository;
     private final BookRepository bookRepository;
+    private final BookViewRepository bvRepo;
+    private final SongViewRepository svRepo;
 
     private void addCurrentDate(Audio audio) {
         audio.setDateAdded(Date.valueOf(LocalDate.now()));
@@ -44,26 +42,33 @@ public class AudioService {
         return book;
     }
 
-    public List<BookDTO> getAllBooks() {
-        List<Book> books = bookRepository.findAll();
-        List<Audio> audio = audioRepository.findAllByIdIn(books.stream().map(Book::getId).collect(Collectors.toList()));
-        List<BookDTO> bookDTOS = new ArrayList<>();
-        for (int i = 0; i < books.size(); i++) {
-            bookDTOS.add(new BookDTO(audio.get(i), books.get(i)));
-        }
-        return bookDTOS;
+//    public List<BookDTO> getAllBooks() {
+//        List<Book> books = bookRepository.findAll();
+//        List<Audio> audio = audioRepository.findAllByIdIn(books.stream().map(Book::getId).collect(Collectors.toList()));
+//        List<BookDTO> bookDTOS = new ArrayList<>();
+//        for (int i = 0; i < books.size(); i++) {
+//            bookDTOS.add(new BookDTO(audio.get(i), books.get(i)));
+//        }
+//        return bookDTOS;
+//    }
+
+    public List<BookView> getAllBooks(){
+        return bvRepo.findAll();
     }
 
-    public List<SongDTO> getAllSongs() {
-        List<Song> songs = songRepository.findAll();
-        List<Audio> audio = audioRepository.findAllByIdIn(songs.stream().map(Song::getId).collect(Collectors.toList()));
-        List<SongDTO> songDTOS = new ArrayList<>();
-        for (int i = 0; i < songs.size(); i++) {
-            songDTOS.add(new SongDTO(audio.get(i), songs.get(i)));
-        }
-        return songDTOS;
-    }
+//    public List<SongDTO> getAllSongs() {
+//        List<Song> songs = songRepository.findAll();
+//        List<Audio> audio = audioRepository.findAllByIdIn(songs.stream().map(Song::getId).collect(Collectors.toList()));
+//        List<SongDTO> songDTOS = new ArrayList<>();
+//        for (int i = 0; i < songs.size(); i++) {
+//            songDTOS.add(new SongDTO(audio.get(i), songs.get(i)));
+//        }
+//        return songDTOS;
+//    }
 
+    public List<SongView> getAllSongs(){
+        return svRepo.findAll();
+    }
     public SongDTO getSong(Long id) {
         Song song = songRepository.findById(id).get();
         Audio audio = audioRepository.findById(id).get();
@@ -96,5 +101,13 @@ public class AudioService {
         Audio audioNew = audioRepository.save(audio);
         Book bookNew = bookRepository.save(book);
         return new BookDTO(audioNew, bookNew);
+    }
+
+    public List<SongView> getSongsByName(String name) {
+        return svRepo.findByNameStartingWith(name);
+    }
+
+    public List<BookView> getBooksByName(String name) {
+        return bvRepo.findByNameStartingWith(name);
     }
 }

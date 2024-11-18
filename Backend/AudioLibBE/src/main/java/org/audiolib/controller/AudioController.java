@@ -4,10 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.audiolib.dto.BookDTO;
 import org.audiolib.dto.SongDTO;
 import org.audiolib.entity.Book;
+import org.audiolib.entity.BookView;
 import org.audiolib.entity.Song;
+import org.audiolib.entity.SongView;
 import org.audiolib.service.AudioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Endpoints for audio CRUD operations
@@ -31,13 +36,27 @@ public class AudioController {
     }
 
     @GetMapping("/songs")
-    public ResponseEntity<SongDTO[]> getSongs() {
-        return ResponseEntity.ok(audioService.getAllSongs().toArray(new SongDTO[0]));
+    public ResponseEntity<SongView[]> getSongs(@RequestParam(name = "name", required = false) Optional<String> name) {
+        if(name.isPresent()){
+            List<SongView> result = audioService.getSongsByName(name.get());
+            if(result.isEmpty())
+                return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(result.toArray(new SongView[0]));
+        } else {
+            return ResponseEntity.ok(audioService.getAllSongs().toArray(new SongView[0]));
+        }
     }
 
     @GetMapping("/books")
-    public ResponseEntity<BookDTO[]> getBooks() {
-        return ResponseEntity.ok(audioService.getAllBooks().toArray(new BookDTO[0]));
+    public ResponseEntity<BookView[]> getBooks(@RequestParam(name = "name", required = false) Optional<String> name) {
+        if(name.isPresent()){
+            List<BookView> result = audioService.getBooksByName(name.get());
+            if(result.isEmpty())
+                return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(result.toArray(new BookView[0]));
+        } else {
+            return ResponseEntity.ok(audioService.getAllBooks().toArray(new BookView[0]));
+        }
     }
 
     @GetMapping("/songs/{id}")
