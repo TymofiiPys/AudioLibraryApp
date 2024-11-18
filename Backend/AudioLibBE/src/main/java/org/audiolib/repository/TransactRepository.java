@@ -1,20 +1,18 @@
 package org.audiolib.repository;
 
 import org.audiolib.dto.AudCarSalesDTO;
-import org.audiolib.dto.AudioRentStatDTO;
+import org.audiolib.dto.GenreStatsDTO;
 import org.audiolib.entity.AudCarSales;
 import org.audiolib.entity.Transact;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 
 import java.sql.Date;
 import java.util.List;
 
 public interface TransactRepository extends JpaRepository<Transact, Long> {
-    @Query(value = "SELECT t.audioCarrierId as carrier_id, COUNT(*) as quantity, ?1 as _date" +
-            " from Transact t " +
-            " where ?1 between t.dateRented and t.dateEndOfRent" +
-            " group by t.audioCarrierId")
+    @Query(nativeQuery = true)
     List<AudCarSalesDTO> findAllRentedOnDate(Date date);
 
     @Query(value = "SELECT a.name as name, (SELECT ar.name FROM artists ar WHERE ar.id = (SELECT s.artist FROM songs s where s.id = a.id)) AS creator," +

@@ -1,7 +1,6 @@
 package org.audiolib.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,5 +24,15 @@ import java.util.Objects;
 //        this.date = date;
 //    }
 //}
-public record AudCarSalesDTO(Long carrier_id, Integer quantity, Date _date) {
+
+//public record AudCarSalesDTO(Long audio_carrier_id, Integer quantity, Date date) {
+//}
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class AudCarSalesDTO {
+    private Long audio_carrier_id;
+    private  Integer quantity;
+    private Date date;
 }

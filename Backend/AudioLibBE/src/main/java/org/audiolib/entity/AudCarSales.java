@@ -15,7 +15,7 @@ public class AudCarSales {
     private Long id;
     @Basic
     @Column(name = "carrier_id")
-    private Long carrierId;
+    private Long audio_carrier_id;
     @Basic
     @Column(name = "quantity")
     private Integer quantity;

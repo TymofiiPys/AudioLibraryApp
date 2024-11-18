@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.audiolib.dto.AudCarSalesDTO;
 
 import java.sql.Date;
 
@@ -11,6 +12,14 @@ import java.sql.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@NamedNativeQuery(name = "Transact.findAllRentedOnDate",
+        query = "SELECT * FROM get_rents_by_date(:date)",
+        resultSetMapping = "Mapping.AudCarSalesDTO")
+@SqlResultSetMapping(name = "Mapping.AudCarSalesDTO",
+        classes = @ConstructorResult(targetClass = AudCarSalesDTO.class,
+                columns = {@ColumnResult(name = "audio_carrier_id"),
+                        @ColumnResult(name = "quantity"),
+                        @ColumnResult(name = "date")}))
 public class Transact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

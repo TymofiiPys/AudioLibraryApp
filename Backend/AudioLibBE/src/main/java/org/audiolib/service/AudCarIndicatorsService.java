@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -47,7 +48,7 @@ public class AudCarIndicatorsService {
         return invRepository.findAllByDate(date);
     }
 
-    public void createSalEntry(){
+    public List<AudCarSales> createSalEntry(){
         List<AudCarSalesDTO> transactsPrevDate = transactRepository.findAllRentedOnDate(
                 Date.valueOf(
                         LocalDate.now().minusDays(1)
@@ -55,9 +56,14 @@ public class AudCarIndicatorsService {
         );
         List<AudCarSales> salEntries = transactsPrevDate.stream().map(mapper::fromDTO).toList();
         List<AudCarSales> salSaved = salesRepository.saveAll(salEntries);
+        return salSaved;
     }
 
     public void createGenreEntry() {
         List<GenreStatsDTO> dtos = transactRepository.genreStatsByDate(Date.valueOf(LocalDate.now()));
+    }
+
+    public List<AudCarSales> getSalByDate(Date date) {
+        return salesRepository.findAllByDate(date);
     }
 }
