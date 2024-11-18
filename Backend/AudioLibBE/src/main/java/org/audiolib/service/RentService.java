@@ -2,7 +2,7 @@ package org.audiolib.service;
 
 import lombok.RequiredArgsConstructor;
 import org.audiolib.dto.RentReceiveDTO;
-import org.audiolib.entity.AudioCarriers;
+import org.audiolib.entity.AudioCarrier;
 import org.audiolib.entity.History;
 import org.audiolib.entity.HistoryPK;
 import org.audiolib.entity.Transact;
@@ -19,7 +19,7 @@ public class RentService {
     private final CarrierRepository carrierRepository;
 
     private boolean carrierAvailable(Long carrierId) {
-        AudioCarriers carrier = carrierRepository.findById(carrierId).get();
+        AudioCarrier carrier = carrierRepository.findById(carrierId).get();
         return carrier.getAmtAvailable() > 0 || carrier.getAmtAvailable() == -1;
     }
 
@@ -32,8 +32,8 @@ public class RentService {
                 rentReceiveDTO.dateEndOfRent()
         );
         if (carrierAvailable(tRecord.getAudioCarrierId())) {
-            AudioCarriers carrier = carrierRepository.findById(tRecord.getAudioCarrierId()).get();
-            if(carrier.getCarrier() == AudioCarriers.Carriers.digital)
+            AudioCarrier carrier = carrierRepository.findById(tRecord.getAudioCarrierId()).get();
+            if(carrier.getCarrier() == AudioCarrier.Carriers.digital)
             {
                 carrier.setAmtAvailable(carrier.getAmtAvailable() - 1);
                 carrierRepository.save(carrier);

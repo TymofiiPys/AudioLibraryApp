@@ -2,7 +2,7 @@ package org.audiolib.service;
 
 import lombok.RequiredArgsConstructor;
 import org.audiolib.dto.CarrierDTO;
-import org.audiolib.entity.AudioCarriers;
+import org.audiolib.entity.AudioCarrier;
 import org.audiolib.mapper.CarrierToDTOMapper;
 import org.audiolib.repository.CarrierRepository;
 import org.springframework.data.domain.Example;
@@ -19,22 +19,22 @@ public class CarrierService {
     private final CarrierToDTOMapper mapper = CarrierToDTOMapper.INSTANCE;
 
     public List<CarrierDTO> getAllCarriers() {
-        List<AudioCarriers> carriers = carrierRepository.findAll();
+        List<AudioCarrier> carriers = carrierRepository.findAll();
         return carriers.stream().map(mapper::toDTO).collect(Collectors.toList());
     }
 
     public List<CarrierDTO> getCarriersByAudio(Long id) {
-        List<AudioCarriers> carriers = carrierRepository.findAllByAudioId(id);
+        List<AudioCarrier> carriers = carrierRepository.findAllByAudioId(id);
         return carriers.stream().map(mapper::toDTO).collect(Collectors.toList());
     }
 
     public CarrierDTO getCarrier(Long id) {
-        AudioCarriers carrier = carrierRepository.findById(id).get();
+        AudioCarrier carrier = carrierRepository.findById(id).get();
         return mapper.toDTO(carrier);
     }
 
     public CarrierDTO saveCarrier(CarrierDTO carrierDTO){
-        AudioCarriers carrier = mapper.toCarrier(carrierDTO);
+        AudioCarrier carrier = mapper.toCarrier(carrierDTO);
         ExampleMatcher carrierMatcher = ExampleMatcher.matching()
                 .withIgnorePaths("id");
         if(!carrierRepository.exists(Example.of(carrier, carrierMatcher))) {

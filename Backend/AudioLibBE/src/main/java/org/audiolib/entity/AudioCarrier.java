@@ -5,12 +5,10 @@ import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.util.Objects;
-
 @Entity
 @jakarta.persistence.Table(name = "audio_carriers", schema = "public", catalog = "AudioLib")
 @Data
-public class AudioCarriers {
+public class AudioCarrier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @jakarta.persistence.Column(name = "id")
