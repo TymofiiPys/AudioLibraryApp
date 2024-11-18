@@ -43,8 +43,8 @@ public class CarrierService {
         return null;
     }
 
-    public CarrierDTO setNewAmt(CarrierDTO carrierDTO) {
-        carrierRepository.updateCarrierAmt(carrierDTO.id(), carrierDTO.amtAvailable());
-        return carrierDTO;
-    }
+//    public CarrierDTO setNewAmt(CarrierDTO carrierDTO) {
+//        carrierRepository.updateCarrierAmt(carrierDTO.id(), carrierDTO.amtAvailable());
+//        return carrierDTO;
+//    }
 }
