@@ -2,7 +2,9 @@ package org.audiolib.service;
 
 import lombok.RequiredArgsConstructor;
 import org.audiolib.dto.BookDTO;
+import org.audiolib.dto.BookPageDetailsDTO;
 import org.audiolib.dto.SongDTO;
+import org.audiolib.dto.SongPageDetailsDTO;
 import org.audiolib.entity.*;
 import org.audiolib.repository.*;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ public class AudioService {
     private final BookRepository bookRepository;
     private final BookViewRepository bvRepo;
     private final SongViewRepository svRepo;
+    private final FeedbackRepository feedbackRepository;
+    private final CarrierRepository carrierRepository;
 
     private void addCurrentDate(Audio audio) {
         audio.setDateAdded(Date.valueOf(LocalDate.now()));
@@ -69,16 +73,18 @@ public class AudioService {
     public List<SongView> getAllSongs(){
         return svRepo.findAll();
     }
-    public SongDTO getSong(Long id) {
-        Song song = songRepository.findById(id).get();
-        Audio audio = audioRepository.findById(id).get();
-        return new SongDTO(audio, song);
+    public SongPageDetailsDTO getSong(Long id) {
+        SongView songView = svRepo.findById(id).get();
+        List<Feedback> feedbacks = feedbackRepository.findAllByAudioId(songView.getId());
+        List<AudioCarrier> carriers = carrierRepository.findAllByAudioId(songView.getId());
+        return new SongPageDetailsDTO(songView, feedbacks, carriers);
     }
 
-    public BookDTO getBook(Long id) {
-        Book book = bookRepository.findById(id).get();
-        Audio audio = audioRepository.findById(id).get();
-        return new BookDTO(audio, book);
+    public BookPageDetailsDTO getBook(Long id) {
+        BookView bookView = bvRepo.findById(id).get();
+        List<Feedback> feedbacks = feedbackRepository.findAllByAudioId(bookView.getId());
+        List<AudioCarrier> carriers = carrierRepository.findAllByAudioId(bookView.getId());
+        return new BookPageDetailsDTO(bookView, feedbacks, carriers);
     }
 
     public void deleteSong(Long id) {

@@ -2,7 +2,9 @@ package org.audiolib.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.audiolib.dto.BookDTO;
+import org.audiolib.dto.BookPageDetailsDTO;
 import org.audiolib.dto.SongDTO;
+import org.audiolib.dto.SongPageDetailsDTO;
 import org.audiolib.entity.Book;
 import org.audiolib.entity.BookView;
 import org.audiolib.entity.Song;
@@ -60,12 +62,12 @@ public class AudioController {
     }
 
     @GetMapping("/songs/{id}")
-    public ResponseEntity<SongDTO> getSong(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<SongPageDetailsDTO> getSong(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(audioService.getSong(id));
     }
 
     @GetMapping("/books/{id}")
-    public ResponseEntity<BookDTO> getBook(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<BookPageDetailsDTO> getBook(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(audioService.getBook(id));
     }
 
