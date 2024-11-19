@@ -55,14 +55,14 @@ public class AudioService {
         SongView songView = svRepo.findById(id).get();
         List<Feedback> feedbacks = feedbackRepository.findAllByAudioId(songView.getId());
         List<AudioCarrier> carriers = carrierRepository.findAllByAudioId(songView.getId());
-        return new SongPageDetailsDTO(songView, feedbacks, carriers);
+        return new SongPageDetailsDTO(songView, feedbacks.toArray(new Feedback[0]), carriers.toArray(new AudioCarrier[0]));
     }
 
     public BookPageDetailsDTO getBook(Long id) {
         BookView bookView = bvRepo.findById(id).get();
         List<Feedback> feedbacks = feedbackRepository.findAllByAudioId(bookView.getId());
         List<AudioCarrier> carriers = carrierRepository.findAllByAudioId(bookView.getId());
-        return new BookPageDetailsDTO(bookView, feedbacks, carriers);
+        return new BookPageDetailsDTO(bookView, feedbacks.toArray(new Feedback[0]), carriers.toArray(new AudioCarrier[0]));
     }
 
     public void deleteSong(Long id) {

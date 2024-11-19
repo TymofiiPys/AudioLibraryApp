@@ -6,5 +6,5 @@ import org.audiolib.entity.SongView;
 
 import java.util.List;
 
-public record SongPageDetailsDTO(SongView songView, List<Feedback> feedbacks, List<AudioCarrier> carriers){
+public record SongPageDetailsDTO(SongView songView, Feedback[] feedbacks, AudioCarrier[] carriers){
 }

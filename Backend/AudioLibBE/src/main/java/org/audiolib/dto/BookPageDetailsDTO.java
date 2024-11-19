@@ -6,5 +6,5 @@ import org.audiolib.entity.Feedback;
 
 import java.util.List;
 
-public record BookPageDetailsDTO(BookView bookView, List<Feedback> feedbacks, List<AudioCarrier> carriers){
+public record BookPageDetailsDTO(BookView bookView, Feedback[] feedbacks, AudioCarrier[] carriers){
 }
