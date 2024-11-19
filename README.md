@@ -7,4 +7,4 @@
 - DBMS: PostgreSQL,
 - Frontend: React,
 - Backend: Spring Boot,
-- Auth: Auth0.
+- ~~Auth: Auth0.~~
