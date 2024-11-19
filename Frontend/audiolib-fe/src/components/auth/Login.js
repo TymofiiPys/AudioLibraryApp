@@ -11,7 +11,8 @@ const Login = () => {
     e.preventDefault();
     try {
       const data = await apiRequest("/login", "POST", { email, password });
-      localStorage.setItem("userId", data.userId); // Store userId after login
+      console.log(data.id);
+      localStorage.setItem("userId", data.id); // Store userId after login
       navigate("/main-menu"); // Redirect to main menu after login
     } catch (error) {
       alert(error.message || "Login failed");
