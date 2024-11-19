@@ -15,29 +15,15 @@ public interface TransactRepository extends JpaRepository<Transact, Long> {
     @Query(nativeQuery = true)
     List<AudCarSalesDTO> findAllRentedOnDate(Date date);
 
-    @Query(value = "SELECT a.name as name, (SELECT ar.name FROM artists ar WHERE ar.id = (SELECT s.artist FROM songs s where s.id = a.id)) AS creator," +
-            "(SELECT avg(t.date_end_of_rent - t.date_rented) as avgRent, count(*) as rents " +
-            "FROM transact t " +
-            "WHERE t.audio_carrier_id IN (" +
-            "SELECT ac.id " +
-            "FROM audio_carriers ac " +
-            "WHERE ac.audio_id = a.id" +
-            ")) " +
-            "FROM audio a " +
-            "WHERE a.id = ?1 ",
-            nativeQuery = true)
-    AudioRentStatDTO getRentStatSongById(Long id);
-
-    @Query(value = "SELECT a.name as name, (SELECT au.name FROM book_authors au WHERE au.id = (SELECT b.author FROM books b where b.id = a.id)) AS creator," +
-            "(SELECT avg(t.date_end_of_rent - t.date_rented) as avgRent, count(*) as rents " +
-            "FROM transact t " +
-            "WHERE t.audio_carrier_id IN (" +
-            "SELECT ac.id " +
-            "FROM audio_carriers ac " +
-            "WHERE ac.audio_id = a.id" +
-            ")) " +
-            "FROM audio a " +
-            "WHERE a.id = ?1 ",
-            nativeQuery = true)
-    AudioRentStatDTO getRentStatBookById(Long id);
+    @Query(value = "SELECT a.genre, CAST(0 as bit), sum() " +
+            "FROM songs a " +
+            "WHERE a.id in " +
+            "(SELECT ac.audio_id, count(*) as audio_active_rents " +
+            "FROM transact t INNER JOIN" +
+            " audio_carriers ac ON t.audio_carrier_id = ac.id " +
+            "WHERE ?1 between t.date_rented and t.date_end_of_rent " +
+            "GROUP BY ac.audio_id)" +
+            "GROUP BY a.genre",
+    nativeQuery = true)
+    List<GenreStatsDTO> genreStatsByDate(Date date);
 }
