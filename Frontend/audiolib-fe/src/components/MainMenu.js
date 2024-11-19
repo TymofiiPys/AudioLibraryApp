@@ -42,10 +42,10 @@ useEffect(() => console.log(localStorage.getItem("userId")))
             <button onClick={() => navigate("/sales")}>Show Sales</button>
           </div>
           <div>
-            <button onClick={() => navigate("/most-popular-songs")}>Most Popular Songs</button>
+            <button onClick={() => navigate("/popular-songs")}>Most Popular Songs</button>
           </div>
           <div>
-            <button onClick={() => navigate("/most-popular-books")}>Most Popular Books</button>
+            <button onClick={() => navigate("/popular-books")}>Most Popular Books</button>
           </div>
           <div>
             <button onClick={() => navigate("/audio-rent-stats")}>Audio Rent Stats</button>

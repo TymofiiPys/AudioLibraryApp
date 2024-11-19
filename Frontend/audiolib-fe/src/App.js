@@ -9,6 +9,9 @@ import ChooseBooks from "./components/ChooseBook"; // Import the ChooseBooks com
 import { apiRequest } from "./utils/apiHelper";
 import Inventory from "./components/Inventory";
 import Sales from "./components/Sales";
+import PopularSongs from "./components/PopularSongs";
+import PopularBooks from "./components/PopularBooks";
+import AudioRentStats from "./components/AudioRentStats";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false); // User authentication status
@@ -76,6 +79,18 @@ const App = () => {
         <Route
           path="/sales"
           element={isAuthenticated ? <Sales /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/popular-songs"
+          element={isAuthenticated ? <PopularSongs /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/popular-books"
+          element={isAuthenticated ? <PopularBooks /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/audio-rent-stats"
+          element={isAuthenticated ? <AudioRentStats /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>

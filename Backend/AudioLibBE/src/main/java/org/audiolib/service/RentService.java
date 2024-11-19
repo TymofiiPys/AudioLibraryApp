@@ -11,6 +11,9 @@ import org.audiolib.repository.HistoryRepository;
 import org.audiolib.repository.TransactRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class RentService {
@@ -28,7 +31,9 @@ public class RentService {
                 null,
                 rentReceiveDTO.userId(),
                 rentReceiveDTO.audioCarrierId(),
-                rentReceiveDTO.dateRented(),
+                Date.valueOf(
+                        LocalDate.now()
+                ),
                 rentReceiveDTO.dateEndOfRent()
         );
         if (carrierAvailable(tRecord.getAudioCarrierId())) {
